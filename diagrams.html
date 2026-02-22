@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <style>
+        .diagram {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dfd" class="diagram">
+        <h2>DFD Level 0</h2>
+        <div class="mermaid">
+            graph LR
+            Student((Student)) -- Video Stream --> Cam[CCTV Cameras]
+            Cam -- Frames --> Engine[Django processing Engine]
+            Admin((Admin)) -- Manage --> Dashboard[Web Dashboard]
+            Engine -- Alert Email --> Admin
+            Engine -- Logs --> DB[(MySQL Database)]
+            DB -- Analytics --> Dashboard
+        </div>
+    </div>
+
+    <div id="er" class="diagram">
+        <h2>ER Diagram</h2>
+        <div class="mermaid">
+            erDiagram
+            PERSON ||--o{ FACE_IMAGE : "has"
+            PERSON ||--o{ ATTENDANCE : "marks"
+            PERSON ||--o{ MISSING_LOG : "triggers"
+            DEPARTMENT ||--o{ PERSON : "belongs to"
+
+            PERSON {
+            int id PK
+            string name
+            string class_name
+            int age
+            }
+            FACE_IMAGE {
+            int id PK
+            int person_id FK
+            binary encoding
+            string image_path
+            }
+            ATTENDANCE {
+            int id PK
+            int person_id FK
+            date date
+            time time_in
+            }
+            MISSING_LOG {
+            int id PK
+            string name
+            datetime timestamp
+            string location
+            string status
+            }
+            DEPARTMENT {
+            int id PK
+            string name
+            }
+        </div>
+    </div>
+
+    <div id="arch" class="diagram">
+        <h2>System Architecture</h2>
+        <div class="mermaid">
+            graph TD
+            subgraph "Input Layer"
+            C1[Classroom Camera]
+            C2[Corridor Camera]
+            end
+
+            subgraph "Processing Layer (Django)"
+            OpenCV[OpenCV Frame Capture]
+            YOLO[YOLOv11 Detection]
+            FaceRec[Face Identification]
+            Logic[Business Logic & Alerts]
+            end
+
+            subgraph "Data Layer"
+            MySQL[(MySQL Database)]
+            Media[Media Storage]
+            end
+
+            subgraph "Presentation Layer"
+            UI[Glassmorphic Web UI]
+            Admin[Email Alerts]
+            end
+
+            C1 & C2 --> OpenCV
+            OpenCV --> YOLO
+            YOLO --> FaceRec
+            FaceRec --> Logic
+            Logic --> MySQL
+            Logic --> Media
+            Logic --> Admin
+            MySQL --> UI
+        </div>
+    </div>
+</body>
+
+</html>

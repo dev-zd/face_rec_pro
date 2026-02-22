@@ -17,7 +17,7 @@
                 style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; padding-right: 0.5rem;">
                 <!-- Detections will be injected here via JS -->
                 <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
-                    <i class="fa-solid fa-spinner fa-spin"></i> Waiting for data...
+                    <i class="fa-solid fa-spinner"></i> Waiting for data...
                 </div>
             </div>
         </div>
@@ -119,7 +119,8 @@
         height: 2px;
         background: rgba(99, 102, 241, 0.5);
         box-shadow: 0 0 10px rgba(99, 102, 241, 0.8);
-        animation: scanMove 3s linear infinite;
+        animation: none;
+        /* Stopped for performance */
     }
 
     @keyframes scanMove {
@@ -179,7 +180,7 @@
                     if (container.children.length === 0 || container.innerHTML.includes('Waiting')) {
                         container.innerHTML = `
                             <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
-                                <i class="fa-solid fa-radar fa-spin"></i> Scanning for faces...
+                                <i class="fa-solid fa-radar"></i> Scanning for faces...
                             </div>
                          `;
                     }
